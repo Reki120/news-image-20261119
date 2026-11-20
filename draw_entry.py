@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Draw entry.png: one image summing up the world news of Thursday 19 November 2026.
 
+Full-day refresh (round 2): the round-1 image was drawn before the day's
+outcomes landed. This version carries the summit's four-point declaration,
+the verified ICJ genocide verdict and the third Kerch Bridge strike.
+
 Deterministic: fixed layout, fixed fonts, no randomness, no timestamps.
 Run:  python3 draw_entry.py   (writes entry.png next to this file,
 or into $MAKEFUN_OUTPUT_DIR when that is set)
@@ -134,20 +138,20 @@ def main():
 
     # ---- main story ----------------------------------------------------
     y = 92
-    d.text((M, y), "SHENZHEN, CHINA — APEC SUMMIT", font=font(BOLD, 26), fill=RED)
+    d.text((M, y), "SHENZHEN, CHINA — APEC SUMMIT · 90 MINUTES", font=font(BOLD, 26), fill=RED)
     y += 40
     y = text_block(
         d, M, y,
-        "TRUMP, XI AND PUTIN HOLD FIRST TRILATERAL SUMMIT",
+        "TRUMP, XI AND PUTIN ISSUE 'DECLARATION TOWARDS PEACE'",
         font(BOLD, 58), PAPER, W - 2 * M, leading=1.12,
     )
     y += 8
     y = text_block(
         d, M, y,
-        "The leaders of the United States, China and Russia meet together for the "
-        "first time, with the wars in Ukraine and the Gulf and nuclear arms control "
-        "on the agenda. Trump saw Putin and Xi separately first; Ukraine dominated "
-        "his talks with Putin.",
+        "After their first-ever three-way meeting at Kylin Villa, the leaders of "
+        "the United States, China and Russia pledge a nuclear war 'cannot be won "
+        "and must never be fought', talks on cutting nuclear risks and more "
+        "refined oil output — but the declaration says nothing on Ukraine or Iran.",
         font(REG, 25), MUTED, W - 2 * M, leading=1.22,
     )
 
@@ -171,21 +175,21 @@ def main():
 
     # ---- secondary stories ----------------------------------------------
     stories = [
-        (RED, "MIDDLE EAST",
-         "GULF WAR WIDENS",
-         "Kuwait repels its first Iranian attack in two months and Bahrain is "
-         "targeted after a US strike on Qeshm Island. A tanker is hit in the "
-         "Strait of Hormuz."),
         (GOLD, "THE HAGUE",
-         "ICJ DELIVERS ROHINGYA JUDGMENT",
-         "The UN's top court gives its final ruling in The Gambia's genocide "
-         "case against Myanmar, over the 2017 crackdown that drove 730,000 "
-         "Rohingya into Bangladesh."),
-        (TEAL, "SENEGAL",
-         "DOZENS MISSING AS BOAT CAPSIZES",
-         "A boat carrying about 50 people bound for Europe capsizes off Yenne, "
-         "south of Dakar. Dozens are missing; some 600 have died or vanished "
-         "on the route this year."),
+         "ICJ FINDS MYANMAR GUILTY OF GENOCIDE",
+         "By 9 votes to 6, the UN's top court rules Myanmar committed genocide "
+         "against the Rohingya in 2017 — the first state ever found guilty — "
+         "and orders reparations and safe return."),
+        (RED, "MIDDLE EAST",
+         "GULF WAR SPREADS TO SAUDI ARABIA",
+         "Iran's drones hit a US base in Kuwait and Bahrain for a fourth time "
+         "in six days; Saudi Arabia intercepts a Houthi missile aimed at "
+         "Riyadh, and a tanker is struck in the Strait of Hormuz."),
+        (TEAL, "UKRAINE",
+         "THIRD STRIKE HALTS KERCH BRIDGE RAIL",
+         "Hours before Putin's Shenzhen summit, a third Ukrainian strike in "
+         "four days halts rail traffic on the Kerch Bridge to Crimea, days "
+         "after a 227-metre road span fell into the strait."),
     ]
     col_w = (W - 2 * M - 2 * 26) // 3
     top = y
@@ -199,9 +203,10 @@ def main():
     # ---- also strip -------------------------------------------------------
     strip_y = 928
     d.line([M, strip_y, W - M, strip_y], fill=GOLD, width=2)
-    also = ("ALSO TODAY — COP31 ministers in Antalya struggle to unblock a climate "
-            "deal  •  Van Gogh sells for a record $190.4 million in New York  •  "
-            "NASA's Voyager 1 reaches one light-day from Earth")
+    also = ("ALSO TODAY — COP31 in Antalya enters its decisive phase as ministers "
+            "wrestle over fossil fuels  •  One dead, dozens missing as a migrant "
+            "boat capsizes off Senegal  •  Van Gogh sells for a record $190.4 million "
+            "in New York")
     text_block(d, M, strip_y + 14, also, font(REG, 20.5), PAPER, W - 2 * M, leading=1.3)
 
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", HERE)
